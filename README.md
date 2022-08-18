@@ -1,5 +1,6 @@
 # ![logo](./img/logo.png)  
 [![Build&Test](https://github.com/StdEnku/EnkuMessenger/actions/workflows/Build&Test.yml/badge.svg)](https://github.com/StdEnku/EnkuMessenger/actions/workflows/Build&Test.yml)  
+![Nuget](https://img.shields.io/nuget/dt/EnkuMessenger?color=blueviolet&logo=Nuget)  
 [Nuget](https://www.nuget.org/packages/EnkuMessenger/)
 ## 概要
 
