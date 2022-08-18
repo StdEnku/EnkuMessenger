@@ -59,9 +59,12 @@ public class Messenger<T> : IMessenger<T>
         var weakReceiver = new WeakReference<IReceiver<T>>(receiver);
         var element = new ReceiversElement<T>(weakReceiver, filtter);
 
-        lock (this._lockObject)
+        if (!this.IsRegistered(receiver))
         {
-            this._receivers.Add(element);
+            lock (this._lockObject)
+            {
+                this._receivers.Add(element);
+            }
         }
     }
 
@@ -80,29 +83,21 @@ public class Messenger<T> : IMessenger<T>
 
         lock (this._lockObject)
         {
-            var index = this._receivers.FindIndex(element => object.ReferenceEquals(element.Receiver, receiver));
-
-            // リスト内に存在しているかで分岐
-            if (index >= 0)
+            // リスト内の検索
+            var index = this._receivers.FindIndex(element => 
             {
-                var isAlive = this._receivers[index].Receiver.TryGetTarget(out var _);
-                if (!isAlive)
+                if (element.Receiver.TryGetTarget(out var receiverRef))
                 {
-                    // リスト内に存在しており参照が切れてる場合削除してfalseを返す
-                    this._receivers.RemoveAt(index);
-                    result = false;
+                    return object.ReferenceEquals(receiverRef, receiver);
                 }
                 else
                 {
-                    // リスト内に存在しており参照が切れていない場合trueを返す
-                    result = true;
+                    return false;
                 }
-            }
-            else
-            {
-                // リスト内に存在しない場合falseを返す
-                result = false;
-            }
+            });
+
+            // 引数に渡せる参照を持っている時点で参照が切れていない根拠となるので参照チェックは行わない
+            result = index >= 0;
         }
 
         return result;
@@ -116,7 +111,17 @@ public class Messenger<T> : IMessenger<T>
     {
         lock (this._lockObject)
         {
-            this._receivers.RemoveAll(element => object.ReferenceEquals(receiver, element.Receiver));
+            this._receivers.RemoveAll(element =>
+            {
+                if (element.Receiver.TryGetTarget(out var receiverRef))
+                {
+                    return object.ReferenceEquals(receiverRef, receiver);
+                }
+                else
+                {
+                    return false;
+                }
+            });
         }
     }
 
@@ -155,5 +160,14 @@ public class Messenger<T> : IMessenger<T>
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 登録済みIReciverの数をカウント
+    /// </summary>
+    /// <returns>登録済みIReciverの数</returns>
+    public int RegisteredCount()
+    {
+        return this._receivers.Count;
     }
 }

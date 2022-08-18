@@ -48,4 +48,10 @@ public interface IMessenger<T> where T : class
     /// </summary>
     /// <param name="parameter">メッセージパラメータ</param>
     void Send(T parameter);
+
+    /// <summary>
+    /// 登録済みIReciverの数をカウント
+    /// </summary>
+    /// <returns>登録済みIReciverの数</returns>
+    int RegisteredCount();
 }
