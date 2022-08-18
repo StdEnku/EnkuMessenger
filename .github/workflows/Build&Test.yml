@@ -1,22 +1,6 @@
 name: Build&Test
 
 on: [push, pull_request]
-  push:
-    tags-ignore:
-      - 'v*'
-    branches:
-      - '**'
-    paths-ignore:
-      - '**/*.md'
-      - '**/.gitignore'
-      - '**/Doxyfile'
-  pull_request:
-    branches:
-      - '**'
-    paths-ignore:
-      - '**/*.md'
-      - '**/.gitignore'
-      - '**/Doxyfile'
 
 env:
   Project_Path: EnkuMessenger/EnkuMessenger.csproj
