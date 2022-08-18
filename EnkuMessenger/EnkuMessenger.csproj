@@ -14,6 +14,7 @@
     <RepositoryUrl>https://github.com/StdEnku/EnkuMessenger</RepositoryUrl>
     <PackageTags>messenger pattern; MVVM;</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
