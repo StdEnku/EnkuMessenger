@@ -6,6 +6,8 @@ MVVMパターンでいうところのViewModel-ViewModel間やView-ViewModel間�
 情報のやり取りを行うためのメッセンジャーパターンと呼ばれる
 デザインパターンの実装を提供するライブラリである。
 
+受信側のクラスの参照は弱参照で保持されるのでメモリリークの心配はありません。
+
 ## 通常の通信
 
 ```c#
@@ -100,8 +102,7 @@ class Program
         Console.WriteLine($"myReceiver2.Value = {myReceiver2.Value}");
         // [result]
         // myReceiver1.Value = Received!!!
-	    // myReceiver2.Value = No Received
+        // myReceiver2.Value = No Received
     }
 }
 ```
-
