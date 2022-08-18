@@ -1,0 +1,47 @@
+name: Build&Test
+
+on: [push, pull_request]
+  push:
+    tags-ignore:
+      - 'v*'
+    branches:
+      - '**'
+    paths-ignore:
+      - '**/*.md'
+      - '**/.gitignore'
+      - '**/Doxyfile'
+  pull_request:
+    branches:
+      - '**'
+    paths-ignore:
+      - '**/*.md'
+      - '**/.gitignore'
+      - '**/Doxyfile'
+
+env:
+  Project_Path: EnkuMessenger/EnkuMessenger.csproj
+
+jobs:
+  BuildAndTest:
+    runs-on:
+      windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v1
+        with: 
+          dotnet-version: 6.0.x
+
+      - name: Build Debug
+        run: dotnet build ${{ env.Project_Path }} -c Debug
+        
+      - name: Build Release
+        run: dotnet build ${{ env.Project_Path }} -c Release
+
+      - name: Execute unit tests Debug
+        run: dotnet test -c Debug
+        
+      - name: Execute unit tests Release
+        run: dotnet test -c Release

@@ -4,6 +4,31 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>0.0.0</Version>
+    <Authors>StdEnku</Authors>
+    <Description>メッセンジャーパターンの実装</Description>
+    <Copyright>Copyright (c) 2022 std::Enkū</Copyright>
+    <PackageProjectUrl>https://github.com/StdEnku/EnkuMessenger</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/StdEnku/EnkuMessenger</RepositoryUrl>
+    <PackageTags>messenger pattern; MVVM;</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\img\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
