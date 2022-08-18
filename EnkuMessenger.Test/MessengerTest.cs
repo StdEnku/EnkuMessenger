@@ -133,6 +133,54 @@ public class MessengerTest
     }
 
     [Fact]
+    public void 送受信機能_フィルターにかからない受信側にメッセージを送信_受信されない()
+    {
+        // Messengerの用意
+        IMessenger<DummyMessage> messenger = Messenger<DummyMessage>.Instance;
+
+        // ダミーの受信側用意
+        const string KEY = "hogehoge";
+        var dummyReceiver = new DummyReceiver();
+        messenger.Register(dummyReceiver, message => message.Key == KEY);
+
+        // ダミーのメッセージの用意と送信
+        var dummyMessage = new DummyMessage();
+        dummyMessage.Key = "fugafuga";
+        dummyMessage.Value = DUMMY_VALUE;
+        messenger.Send(dummyMessage);
+
+        // 判定
+        Assert.NotEqual(DUMMY_VALUE, dummyReceiver.Value);
+
+        // 終了処理
+        messenger.UnRegister(dummyReceiver);
+    }
+
+    [Fact]
+    public void 送受信機能_フィルターにかかる受信側にメッセージを送信_受信される()
+    {
+        // Messengerの用意
+        IMessenger<DummyMessage> messenger = Messenger<DummyMessage>.Instance;
+
+        // ダミーの受信側用意
+        const string KEY = "hogehoge";
+        var dummyReceiver = new DummyReceiver();
+        messenger.Register(dummyReceiver, message => message.Key == KEY);
+
+        // ダミーのメッセージの用意と送信
+        var dummyMessage = new DummyMessage();
+        dummyMessage.Key = KEY;
+        dummyMessage.Value = DUMMY_VALUE;
+        messenger.Send(dummyMessage);
+
+        // 判定
+        Assert.Equal(DUMMY_VALUE, dummyReceiver.Value);
+
+        // 終了処理
+        messenger.UnRegister(dummyReceiver);
+    }
+
+    [Fact]
     public void IsRegistered_登録済みの受信側を引数に渡す_trueを返す()
     {
         // Messengerの用意
