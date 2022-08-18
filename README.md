@@ -1,4 +1,5 @@
-# ![logo](./img/logo.png)
+# ![logo](./img/logo.png)  
+[![Build&Test](https://github.com/StdEnku/EnkuMessenger/actions/workflows/Build&Test.yml/badge.svg)](https://github.com/StdEnku/EnkuMessenger/actions/workflows/Build&Test.yml)
 ## 概要
 
 本ライブラリ通常では情報のやり取りが行う事の難しい
